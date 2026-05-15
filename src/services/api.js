@@ -3,8 +3,10 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4001/api';
 async function fetchWithAuth(url, options = {}) {
     const token = localStorage.getItem('token');
     
+    const isFormData = options.body instanceof FormData;
+    
     const headers = {
-        'Content-Type': 'application/json',
+        ...(!isFormData && { 'Content-Type': 'application/json' }),
         ...options.headers,
     };
 
@@ -34,8 +36,8 @@ async function fetchWithAuth(url, options = {}) {
 
 export const api = {
     get: (url) => fetchWithAuth(url),
-    post: (url, body) => fetchWithAuth(url, { method: 'POST', body: JSON.stringify(body) }),
-    put: (url, body) => fetchWithAuth(url, { method: 'PUT', body: JSON.stringify(body) }),
-    patch: (url, body) => fetchWithAuth(url, { method: 'PATCH', body: JSON.stringify(body) }),
+    post: (url, body) => fetchWithAuth(url, { method: 'POST', body: body instanceof FormData ? body : JSON.stringify(body) }),
+    put: (url, body) => fetchWithAuth(url, { method: 'PUT', body: body instanceof FormData ? body : JSON.stringify(body) }),
+    patch: (url, body) => fetchWithAuth(url, { method: 'PATCH', body: body instanceof FormData ? body : JSON.stringify(body) }),
     delete: (url) => fetchWithAuth(url, { method: 'DELETE' }),
 };

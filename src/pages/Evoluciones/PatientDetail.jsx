@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Edit, Plus, Calendar, Clock, Briefcase, Eye, FileText } from 'lucide-react';
+import { ArrowLeft, Edit, Plus, Calendar, Clock, Briefcase, Eye, FileText, ImagePlus, X } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import { PATIENT_STATUS } from '../../data/mockData';
@@ -31,6 +31,8 @@ export default function PatientDetail() {
         procedimiento: '',
         notas: '',
     });
+    const [imagenes, setImagenes] = useState([]);
+    const fileInputRef = useRef(null);
 
     const [medicalForm, setMedicalForm] = useState({});
     const [newDisease, setNewDisease] = useState('');
@@ -68,18 +70,43 @@ export default function PatientDetail() {
         setShowEditMedical(false);
     };
 
-    const handleRegisterEvolution = () => {
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        if (imagenes.length + files.length > 5) {
+            alert('Solo se permite un máximo de 5 imágenes.');
+            return;
+        }
+        setImagenes(prev => [...prev, ...files].slice(0, 5));
+    };
+
+    const removeImage = (index) => {
+        setImagenes(prev => prev.filter((_, i) => i !== index));
+    };
+
+    const handleRegisterEvolution = async () => {
         const today = new Date();
-        addEvolution({
-            pacienteId: patient.id,
-            fecha: today.toISOString().split('T')[0],
-            hora: today.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false }),
-            procedimiento: registerForm.procedimiento,
-            estado: 'Atendido',
-            notas: registerForm.notas,
-            doctorId: currentUser.id,
+        const formData = new FormData();
+        
+        // 1. IDs primero (orden estricto)
+        formData.append('doctorId', currentUser.id);
+        formData.append('pacienteId', patient.id);
+        
+        // 2. Resto de campos
+        formData.append('fecha', today.toISOString().split('T')[0]);
+        formData.append('hora', today.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false }));
+        formData.append('procedimiento', registerForm.procedimiento);
+        formData.append('estado', 'Atendido');
+        formData.append('notas', registerForm.notas);
+        
+        // 3. Imágenes al final
+        imagenes.forEach(file => {
+            formData.append('imagenes', file);
         });
+
+        await addEvolution(formData);
+        
         setRegisterForm({ procedimiento: '', notas: '' });
+        setImagenes([]);
         setShowRegister(false);
     };
 
@@ -204,6 +231,15 @@ export default function PatientDetail() {
                                         {ev.procedimiento}
                                     </div>
                                     <p className="evolution-card-preview">{ev.notas}</p>
+                                    
+                                    {ev.imagenes && ev.imagenes.length > 0 && (
+                                        <div className="evolution-card-images">
+                                            {ev.imagenes.map((imgUrl, idx) => (
+                                                <img key={idx} src={imgUrl} alt={`Evolución ${idx}`} className="ev-thumbnail" />
+                                            ))}
+                                        </div>
+                                    )}
+
                                     <div style={{ marginTop: 'var(--space-3)', display: 'flex', justifyContent: 'flex-end' }}>
                                         <Button variant="ghost" size="sm" icon={Eye} onClick={() => setShowEvDetail(ev)}>
                                             Ver detalle
@@ -254,6 +290,17 @@ export default function PatientDetail() {
                             <div className="evolution-notes-content">
                                 {showEvDetail.notas}
                             </div>
+                            
+                            {showEvDetail.imagenes && showEvDetail.imagenes.length > 0 && (
+                                <div className="evolution-detail-images-section">
+                                    <h4 className="input-label" style={{ marginTop: 'var(--space-4)', marginBottom: 'var(--space-2)' }}>Imágenes Adjuntas</h4>
+                                    <div className="evolution-detail-gallery">
+                                        {showEvDetail.imagenes.map((imgUrl, idx) => (
+                                            <img key={idx} src={imgUrl} alt={`Adjunto ${idx}`} className="ev-gallery-image" />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </>
                 )}
@@ -299,6 +346,38 @@ export default function PatientDetail() {
                         onChange={(e) => setRegisterForm(f => ({ ...f, notas: e.target.value }))}
                         rows={8}
                     />
+                    
+                    <div className="images-upload-container">
+                        <label className="input-label">IMÁGENES (Máx. 5)</label>
+                        <div 
+                            className="images-upload-dropzone" 
+                            onClick={() => fileInputRef.current?.click()}
+                        >
+                            <ImagePlus size={24} className="text-secondary" />
+                            <span>Haga clic para subir imágenes</span>
+                            <input 
+                                type="file" 
+                                multiple 
+                                accept="image/*" 
+                                hidden 
+                                ref={fileInputRef} 
+                                onChange={handleImageChange} 
+                            />
+                        </div>
+                        {imagenes.length > 0 && (
+                            <div className="images-preview-list">
+                                {imagenes.map((file, index) => (
+                                    <div key={index} className="image-preview-item">
+                                        <img src={URL.createObjectURL(file)} alt="preview" />
+                                        <button className="remove-image-btn" onClick={() => removeImage(index)}>
+                                            <X size={14} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
                     <p className="autosave-notice">AUTOGUARDADO ACTIVADO</p>
                 </div>
             </Modal>
