@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Editar Cita - DentAdmin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#87E1FF",
+                        "text-primary": "#1E2A32",
+                        "background-light": "#f4faff",
+                        "background-dark": "#101d22",
+                        "surface": "#ffffff",
+                        "status-modified": "#FFB74D",
+                        "status-cancelled": "#EF5350",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    spacing: {
+                        '8pt': '8px',
+                        '16pt': '16px',
+                        '24pt': '24px',
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .modal-overlay {
+            background-color: rgba(30, 42, 50, 0.4);
+            backdrop-filter: blur(8px);
+        }
+        .sidebar-fixed {
+            width: 240px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-hidden h-screen">
+<div class="relative flex h-full w-full overflow-hidden opacity-40 pointer-events-none filter blur-[2px]">
+<aside class="sidebar-fixed bg-white border-r border-slate-200 flex flex-col p-6 gap-8">
+<div class="flex items-center gap-2 px-2">
+<div class="size-8 bg-primary rounded-lg"></div>
+<span class="font-bold text-xl tracking-tight">DentAdmin</span>
+</div>
+<nav class="space-y-2">
+<div class="flex items-center gap-3 p-3 bg-primary/10 rounded-xl text-primary font-bold">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Calendario</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-slate-500">
+<span class="material-symbols-outlined">group</span>
+<span>Pacientes</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-slate-500">
+<span class="material-symbols-outlined">medical_services</span>
+<span>Tratamientos</span>
+</div>
+</nav>
+</aside>
+<main class="flex-1 flex flex-col">
+<header class="h-16 border-b border-slate-200 bg-white flex items-center justify-between px-8">
+<h1 class="text-xl font-bold">Vista Semanal</h1>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="text-sm font-medium">Dr. Alejandro Silva</span>
+<img alt="Dr. Profile" class="size-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT14fT3BY7rIhHvaFoYgwlvNecyAWN9rHPlA-iltsFYi76P2RJ1IvF8kGH6pl7NiO3ch5w0w1scP9C0bGcyLjNJRxBLugfHrSnYNES_fKoHOTJ1ad4le2yJDs0rfmaZpL9GFGWBxhsF7oH05R7iVxYBOKQF9qp0p1Ti5dqydbKvJJ_ZlUOx4NVKe81e1YptDFPp9EnjxWJGt8t_W9GtN2OTSOJFnqvKo2WObM-h9Dh9vf8Oj-7L12f4_m08G9wgV-uAxhxkYIfxrY"/>
+</div>
+</div>
+</header>
+<div class="flex-1 p-8 grid grid-cols-7 gap-4">
+<div class="border-r border-slate-100 last:border-0 h-full"></div>
+<div class="border-r border-slate-100 last:border-0 h-full"></div>
+<div class="border-r border-slate-100 last:border-0 h-full bg-slate-50/50"></div>
+<div class="border-r border-slate-100 last:border-0 h-full"></div>
+<div class="border-r border-slate-100 last:border-0 h-full"></div>
+<div class="border-r border-slate-100 last:border-0 h-full"></div>
+<div class="border-r border-slate-100 last:border-0 h-full"></div>
+</div>
+</main>
+</div>
+<div class="absolute inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
+<div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
+<div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center">
+<h2 class="text-xl font-bold text-text-primary">Editar Cita</h2>
+<button class="text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="p-6 space-y-5">
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Nombre del Paciente</label>
+<input class="w-full h-11 px-4 rounded-xl border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all font-medium" type="text" value="Ricardo Arjona"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">RUT</label>
+<input class="w-full h-11 px-4 rounded-xl border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" type="text" value="15.234.876-K"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Edad</label>
+<input class="w-full h-11 px-4 rounded-xl border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" type="number" value="59"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Doctor</label>
+<div class="relative">
+<select class="w-full h-11 px-4 rounded-xl border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm appearance-none transition-all font-medium">
+<option selected="" value="1">Dr. Alejandro Silva</option>
+<option value="2">Dra. Beatriz Morales</option>
+<option value="3">Dr. Carlos Fuente</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Fecha</label>
+<div class="relative">
+<input class="w-full h-11 px-4 rounded-xl border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" type="date" value="2023-10-24"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Hora</label>
+<div class="relative">
+<input class="w-full h-11 px-4 rounded-xl border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" type="time" value="14:30"/>
+</div>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Descripción / Notas Clínicas</label>
+<textarea class="w-full p-4 rounded-xl border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all resize-none leading-relaxed" rows="3">Paciente presenta sensibilidad en el segundo premolar superior derecho. Se programó revisión de conducto y posible limpieza profunda.</textarea>
+</div>
+<div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+<button class="flex-1 h-11 border-2 border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 transition-all active:scale-[0.98] text-sm" type="button">
+                    Cancelar
+                </button>
+<button class="flex-[2] h-11 bg-primary hover:brightness-95 text-text-primary font-bold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98] text-sm" type="submit">
+                    Guardar Cambios
+                </button>
+</div>
+</form>
+</div>
+</div>
+
+</body></html>

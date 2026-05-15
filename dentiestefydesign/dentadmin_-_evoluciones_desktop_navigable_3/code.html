@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Detalle Médico del Paciente - DentAdmin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "accent-soft": "#87E1FF",
+                        "background-light": "#F4FAFF",
+                        "text-dark": "#1E2A32",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-display text-text-dark bg-background-light;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .sidebar-link.active {
+            @apply bg-primary text-white shadow-lg shadow-primary/20;
+        }
+        .sidebar-link:not(.active) {
+            @apply text-slate-500 hover:bg-slate-100;
+        }
+        .modal-blur {
+            backdrop-filter: blur(4px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen overflow-hidden flex">
+<div class="flex flex-1 overflow-hidden blur-[2px]">
+<aside class="w-64 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col z-40">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg">
+<span class="material-symbols-outlined text-white text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-800 tracking-tight text-slate-800">DentAdmin</span>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Agenda</span>
+</a>
+<a class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Perfil</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Evoluciones</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Usuarios</span>
+</a>
+</nav>
+<div class="p-4 mt-auto border-t border-slate-100">
+<div class="flex items-center gap-3 p-2">
+<div class="w-10 h-10 rounded-full bg-accent-soft flex items-center justify-center text-primary font-bold">
+                        DR
+                    </div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-900 truncate">Dr. Ricardo Pérez</p>
+<p class="text-xs text-slate-500 truncate">Cirujano Dentista</p>
+</div>
+<button class="text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background-light">
+<header class="bg-white border-b border-slate-200 flex-shrink-0 px-8 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors text-sm font-bold">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                            Volver al listado
+                        </button>
+<div class="h-6 w-[1px] bg-slate-200"></div>
+<h1 class="text-lg font-800 text-slate-900">Historial Clínico</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined text-lg">add</span>
+                            Nueva Evolución
+                        </button>
+<div class="h-8 w-[1px] bg-slate-200"></div>
+<span class="text-xs font-semibold text-slate-500">ID Ficha: #20442</span>
+</div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 mb-8">
+<div class="flex items-start justify-between mb-8">
+<div class="flex gap-6">
+<div class="w-24 h-24 rounded-2xl bg-accent-soft/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-5xl font-light">account_circle</span>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="text-3xl font-800 text-text-dark">Maria Ignacia Tapia</h2>
+<span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded-full border border-emerald-100 uppercase tracking-wider">Paciente Activo</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-3">
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-lg">fingerprint</span>
+<span class="text-sm font-semibold">12.345.678-9</span>
+</div>
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-lg">cake</span>
+<span class="text-sm font-semibold">29 años (15/05/1995)</span>
+</div>
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-lg">call</span>
+<span class="text-sm font-semibold">+56 9 8765 4321</span>
+</div>
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-lg">mail</span>
+<span class="text-sm font-semibold">m.tapia@email.com</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-4">
+<button class="flex items-center gap-2 px-4 py-2 border border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 rounded-lg text-sm font-bold transition-all shadow-sm">
+<span class="material-symbols-outlined text-lg">edit</span>
+                                Editar Datos
+                            </button>
+<p class="text-[11px] text-slate-400 font-medium">Última visita: 14 May 2024</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-100">
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-slate-400">
+<span class="material-symbols-outlined text-lg">medical_services</span>
+<h4 class="text-xs font-bold uppercase tracking-wider">Enfermedades Crónicas</h4>
+</div>
+<div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+<p class="text-sm font-semibold text-slate-700 leading-relaxed">Hipertensión arterial, Diabetes Tipo II</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-slate-400">
+<span class="material-symbols-outlined text-lg">warning</span>
+<h4 class="text-xs font-bold uppercase tracking-wider">Alergias</h4>
+</div>
+<div class="p-3 bg-rose-50/50 rounded-xl border border-rose-100">
+<p class="text-sm font-bold text-rose-600 leading-relaxed">Penicilina, AINES</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-slate-400">
+<span class="material-symbols-outlined text-lg">pill</span>
+<h4 class="text-xs font-bold uppercase tracking-wider">Medicamentos Actuales</h4>
+</div>
+<div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+<p class="text-sm font-semibold text-slate-500 italic">No registrado</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 modal-blur">
+<div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+<div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between">
+<div>
+<h2 class="text-xl font-800 text-slate-900">Editar Antecedentes Médicos</h2>
+<p class="text-sm text-slate-500 mt-1">Actualice la información clínica relevante del paciente.</p>
+</div>
+<button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+<form class="space-y-8">
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Enfermedades Crónicas</label>
+<div class="flex flex-wrap gap-2 p-3 border border-slate-200 rounded-xl focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary text-sm font-bold rounded-lg border border-primary/20">
+                                Hipertensión
+                                <button class="material-symbols-outlined text-base" type="button">close</button>
+</span>
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary text-sm font-bold rounded-lg border border-primary/20">
+                                Diabetes Tipo II
+                                <button class="material-symbols-outlined text-base" type="button">close</button>
+</span>
+<input class="border-none focus:ring-0 text-sm p-1 flex-1 min-w-[150px] bg-transparent text-slate-700" placeholder="Agregar enfermedad..." type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Alergias</label>
+<textarea class="w-full rounded-xl border-slate-200 text-sm font-medium focus:border-primary focus:ring-primary/10 placeholder:text-slate-400" placeholder="Ej: Penicilina, látex, etc." rows="3">Penicilina, AINES</textarea>
+</div>
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Medicamentos Actuales</label>
+<textarea class="w-full rounded-xl border-slate-200 text-sm font-medium focus:border-primary focus:ring-primary/10 placeholder:text-slate-400" placeholder="Listado de medicamentos..." rows="3"></textarea>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Grupo Sanguíneo</label>
+<select class="w-full rounded-xl border-slate-200 text-sm font-bold text-slate-700 focus:border-primary focus:ring-primary/10">
+<option>A+</option>
+<option>A-</option>
+<option>B+</option>
+<option>B-</option>
+<option>AB+</option>
+<option>AB-</option>
+<option selected="">O+</option>
+<option>O-</option>
+</select>
+</div>
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Factor RH</label>
+<div class="flex gap-4 pt-1">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary/20 border-slate-300" name="rh" type="radio"/>
+<span class="text-sm font-semibold text-slate-700">Positivo</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary/20 border-slate-300" name="rh" type="radio"/>
+<span class="text-sm font-semibold text-slate-700">Negativo</span>
+</label>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Observaciones Generales</label>
+<textarea class="w-full rounded-xl border-slate-200 text-sm font-medium focus:border-primary focus:ring-primary/10 placeholder:text-slate-400" placeholder="Detalles adicionales, antecedentes quirúrgicos, etc." rows="4"></textarea>
+</div>
+</form>
+</div>
+<div class="px-8 py-6 border-t border-slate-100 flex items-center justify-end gap-3 bg-slate-50/50">
+<button class="px-6 py-2.5 border border-slate-200 text-slate-600 hover:bg-slate-100 rounded-xl text-sm font-bold transition-all">
+                    Cancelar
+                </button>
+<button class="px-6 py-2.5 bg-accent-soft text-[#006080] hover:bg-[#76D5F5] rounded-xl text-sm font-bold shadow-sm transition-all border border-[#B1EDFF]">
+                    Guardar Cambios
+                </button>
+</div>
+</div>
+</div>
+
+</body></html>

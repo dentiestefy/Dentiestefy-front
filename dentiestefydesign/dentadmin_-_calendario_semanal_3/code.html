@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DentAdmin - Eliminar Cita</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#87E1FF",
+                        "destructive": "#E57373",
+                        "text-primary": "#1E2A32",
+                        "background-light": "#f4faff",
+                        "background-dark": "#101d22",
+                        "surface": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .modal-overlay {
+            background-color: rgba(30, 42, 50, 0.6);
+            backdrop-filter: blur(8px);
+        }
+        .ios-shadow {
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.2);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-primary antialiased overflow-hidden">
+<div class="relative flex h-screen w-full overflow-hidden opacity-30 pointer-events-none">
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col p-6 space-y-8">
+<div class="flex items-center gap-2">
+<div class="size-8 bg-primary rounded-lg"></div>
+<span class="font-bold text-xl">DentAdmin</span>
+</div>
+<nav class="space-y-4">
+<div class="flex items-center gap-3 text-primary font-bold">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Calendario</span>
+</div>
+<div class="flex items-center gap-3 text-slate-400">
+<span class="material-symbols-outlined">group</span>
+<span>Pacientes</span>
+</div>
+<div class="flex items-center gap-3 text-slate-400">
+<span class="material-symbols-outlined">analytics</span>
+<span>Reportes</span>
+</div>
+</nav>
+</aside>
+<main class="flex-1 bg-slate-50 p-8">
+<div class="bg-white rounded-2xl h-full border border-slate-200 p-6">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold">Agenda Semanal</h2>
+<div class="flex gap-2">
+<div class="px-4 py-2 border rounded-lg">Hoy</div>
+<div class="px-4 py-2 bg-primary rounded-lg font-bold">Nueva Cita</div>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-4 border-t pt-4">
+<div class="text-center font-bold text-slate-400">Lun</div>
+<div class="text-center font-bold text-slate-400">Mar</div>
+<div class="text-center font-bold text-slate-400">Mié</div>
+<div class="text-center font-bold text-slate-400 text-primary">Jue</div>
+<div class="text-center font-bold text-slate-400">Vie</div>
+<div class="text-center font-bold text-slate-400">Sáb</div>
+<div class="text-center font-bold text-slate-400">Dom</div>
+</div>
+</div>
+</main>
+</div>
+<div class="absolute inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
+<div class="bg-white w-full max-w-[400px] rounded-2xl ios-shadow overflow-hidden">
+<div class="px-6 pt-6 pb-2 text-center">
+<div class="size-16 bg-red-50 text-destructive rounded-full flex items-center justify-center mx-auto mb-4">
+<span class="material-symbols-outlined text-4xl">delete_forever</span>
+</div>
+<h2 class="text-xl font-bold text-text-primary">Eliminar Cita</h2>
+</div>
+<div class="px-6 pb-6 pt-2">
+<p class="text-sm text-slate-500 text-center mb-6 leading-relaxed">
+                ¿Estás seguro de que deseas eliminar esta cita? <br/>
+<span class="font-semibold text-destructive">Esta acción no se puede deshacer.</span>
+</p>
+<div class="bg-slate-50 rounded-xl p-4 border border-slate-100 space-y-3">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-slate-400 text-lg mt-0.5">person</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Paciente</p>
+<p class="text-sm font-semibold text-text-primary">Ricardo Milos</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-slate-400 text-lg mt-0.5">calendar_today</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Fecha</p>
+<p class="text-sm font-semibold text-text-primary">12 Oct, 2023</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-slate-400 text-lg mt-0.5">schedule</span>
+<div>
+<p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Hora</p>
+<p class="text-sm font-semibold text-text-primary">08:00 AM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-6 pb-6 flex flex-col gap-3">
+<button class="w-full h-12 bg-destructive text-white font-bold rounded-xl shadow-lg shadow-destructive/20 hover:brightness-95 transition-all active:scale-[0.98]">
+                Eliminar Cita
+            </button>
+<button class="w-full h-12 border-2 border-slate-100 text-slate-500 font-bold rounded-xl hover:bg-slate-50 transition-all active:scale-[0.98]">
+                Cancelar
+            </button>
+</div>
+</div>
+</div>
+
+</body></html>

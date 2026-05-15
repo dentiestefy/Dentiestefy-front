@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Registrar Evolución - DentAdmin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "accent-soft": "#87E1FF",
+                        "background-light": "#F4FAFF",
+                        "text-dark": "#1E2A32",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-display text-text-dark bg-background-light;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .sidebar-link.active {
+            @apply bg-primary text-white shadow-lg shadow-primary/20;
+        }
+        .sidebar-link:not(.active) {
+            @apply text-slate-500 hover:bg-slate-100;
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen overflow-hidden flex">
+<aside class="w-64 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col z-10 blur-[2px]">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg">
+<span class="material-symbols-outlined text-white text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-800 tracking-tight text-slate-800">DentAdmin</span>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Agenda</span>
+</a>
+<a class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Perfil</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Evoluciones</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Usuarios</span>
+</a>
+</nav>
+<div class="p-4 mt-auto border-t border-slate-100">
+<div class="flex items-center gap-3 p-2">
+<div class="w-10 h-10 rounded-full bg-accent-soft flex items-center justify-center text-primary font-bold">DR</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-900 truncate">Dr. Ricardo Pérez</p>
+<p class="text-xs text-slate-500 truncate">Cirujano Dentista</p>
+</div>
+</div>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background-light blur-[2px]">
+<header class="bg-white border-b border-slate-200 flex-shrink-0 px-8 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-slate-500 text-sm font-bold">
+<span class="material-symbols-outlined text-lg">arrow_back</span>Volver al listado
+                    </button>
+<div class="h-6 w-[1px] bg-slate-200"></div>
+<h1 class="text-lg font-800 text-slate-900">Historial Clínico</h1>
+</div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto p-8">
+<div class="bg-white rounded-2xl border border-slate-200 p-6 mb-8">
+<h2 class="text-2xl font-800">Maria Ignacia Tapia</h2>
+</div>
+<div class="grid grid-cols-4 gap-6">
+<div class="bg-white p-5 rounded-xl border border-slate-200 h-48"></div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 h-48"></div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 h-48"></div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 h-48"></div>
+</div>
+</main>
+</div>
+<div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+<div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+<div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-accent-soft/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined font-semibold">edit_note</span>
+</div>
+<h2 class="text-xl font-800 text-slate-900">Registrar Evolución</h2>
+</div>
+<button class="text-slate-400 hover:text-slate-600 transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="bg-background-light px-8 py-4 border-b border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Fecha y Hora</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="material-symbols-outlined text-sm text-primary">calendar_today</span>
+<span class="text-sm font-bold text-slate-700">14 May 2024</span>
+<span class="text-slate-300 mx-1">•</span>
+<span class="text-sm font-bold text-primary">09:30 AM</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Procedimiento</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="material-symbols-outlined text-sm text-primary">medical_services</span>
+<span class="text-sm font-bold text-slate-700">Instalación Brackets Cerámicos - Arcada Superior</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
+<div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+<span class="text-[10px] font-extrabold uppercase tracking-wide">Atendido</span>
+</div>
+</div>
+<div class="flex-1 p-8 overflow-y-auto custom-scrollbar">
+<div class="space-y-4">
+<label class="block text-sm font-bold text-slate-700">Notas de la atención clínica</label>
+<div class="relative group">
+<textarea class="w-full min-h-[320px] p-6 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:ring-0 focus:border-accent-soft transition-all text-slate-700 placeholder:text-slate-400 placeholder:font-medium leading-relaxed resize-none" placeholder="Escriba aquí la evolución clínica de la atención..."></textarea>
+<div class="absolute bottom-4 right-4 text-[10px] font-bold text-slate-400 pointer-events-none">
+                            AUTOGUARDADO ACTIVADO
+                        </div>
+</div>
+</div>
+</div>
+<div class="px-8 py-6 bg-white border-t border-slate-100 flex items-center justify-end gap-3">
+<button class="px-6 py-2.5 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors border border-transparent">
+                    Cancelar
+                </button>
+<button class="px-8 py-2.5 bg-accent-soft hover:bg-opacity-80 text-[#1E2A32] rounded-xl text-sm font-800 transition-all shadow-lg shadow-accent-soft/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">save</span>
+                    Guardar Evolución
+                </button>
+</div>
+</div>
+</div>
+
+</body></html>

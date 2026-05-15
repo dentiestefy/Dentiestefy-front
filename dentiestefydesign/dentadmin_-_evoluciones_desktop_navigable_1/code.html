@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ver Detalle Evolución - DentAdmin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "accent-soft": "#87E1FF",
+                        "background-light": "#F4FAFF",
+                        "text-dark": "#1E2A32",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-display text-text-dark bg-background-light;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .sidebar-link.active {
+            @apply bg-primary text-white shadow-lg shadow-primary/20;
+        }
+        .sidebar-link:not(.active) {
+            @apply text-slate-500 hover:bg-slate-100;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen overflow-hidden flex relative">
+<aside class="w-64 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col z-10 blur-[2px] pointer-events-none">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg">
+<span class="material-symbols-outlined text-white text-2xl">dentistry</span>
+</div>
+<span class="text-xl font-800 tracking-tight text-slate-800">DentAdmin</span>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Agenda</span>
+</a>
+<a class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Perfil</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Evoluciones</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Usuarios</span>
+</a>
+</nav>
+<div class="p-4 mt-auto border-t border-slate-100">
+<div class="flex items-center gap-3 p-2">
+<div class="w-10 h-10 rounded-full bg-accent-soft flex items-center justify-center text-primary font-bold">DR</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-900 truncate">Dr. Ricardo Pérez</p>
+<p class="text-xs text-slate-500 truncate">Cirujano Dentista</p>
+</div>
+</div>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background-light blur-[2px] pointer-events-none">
+<header class="bg-white border-b border-slate-200 flex-shrink-0 px-8 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-slate-400 text-sm font-bold">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                        Volver al listado
+                    </button>
+<div class="h-6 w-[1px] bg-slate-200"></div>
+<h1 class="text-lg font-800 text-slate-900">Historial Clínico</h1>
+</div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto p-8">
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-8">
+<div class="flex gap-6">
+<div class="w-20 h-20 rounded-2xl bg-accent-soft/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-4xl font-light">account_circle</span>
+</div>
+<div>
+<h2 class="text-2xl font-800 text-text-dark">Maria Ignacia Tapia</h2>
+<p class="text-sm font-semibold text-slate-500">12.345.678-9 • 29 años</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-[1px]">
+<div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col overflow-hidden mx-4">
+<div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-white">
+<div>
+<h3 class="text-xl font-800 text-slate-900">Detalle de Evolución</h3>
+<p class="text-xs font-bold text-primary mt-1 uppercase tracking-wider">Registro Clínico de Atención</p>
+</div>
+<button class="text-slate-400 hover:text-slate-600 transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-8 overflow-y-auto max-h-[70vh] custom-scrollbar">
+<div class="flex items-center gap-6 mb-8 bg-background-light p-4 rounded-xl border border-slate-100">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Fecha</p>
+<p class="text-sm font-800 text-slate-900">14 de Mayo, 2024</p>
+</div>
+</div>
+<div class="w-[1px] h-8 bg-slate-200"></div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Hora</p>
+<p class="text-sm font-800 text-slate-900">09:30 AM</p>
+</div>
+</div>
+<div class="ml-auto">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-800 bg-emerald-50 text-emerald-600 border border-emerald-100 uppercase tracking-wider">
+                            Atendido
+                        </span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-sm font-800 text-slate-800 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">description</span>
+                            Notas Clínicas y Evolución
+                        </h4>
+<span class="text-[10px] font-bold text-slate-400">ID: #EV-20442</span>
+</div>
+<div class="relative">
+<div class="absolute top-4 left-4 text-slate-300 pointer-events-none">
+<span class="material-symbols-outlined">format_quote</span>
+</div>
+<div class="w-full min-h-[200px] p-6 pt-10 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 leading-relaxed font-medium">
+                            Paciente se presenta a control de ortodoncia programado. 
+                            <br/><br/>
+                            Se observa avance satisfactorio en la alineación de la arcada superior. Se procede a realizar el ajuste de arcos (cambio de arco Niti 0.16 a 0.18). Se refuerzan indicaciones de higiene interproximal debido a leve acumulación de placa en zona de molares posteriores.
+                            <br/><br/>
+                            Se instala cadena elástica en sector anterior para cierre de microdiastema entre 1.1 y 2.1. Paciente refiere buen uso de elásticos intermaxilares. Próximo control en 4 semanas para evaluación de torque.
+                        </div>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-6">
+<div class="p-4 rounded-xl border border-slate-100 bg-white">
+<p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Profesional</p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 text-sm">person</span>
+</div>
+<p class="text-xs font-800 text-slate-900">Dr. Ricardo Pérez</p>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-slate-100 bg-white">
+<p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Especialidad</p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 text-sm">orthopedics</span>
+</div>
+<p class="text-xs font-800 text-slate-900">Ortodoncia</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-8 py-6 border-t border-slate-100 bg-slate-50 flex justify-end">
+<button class="px-10 py-3 bg-accent-soft text-primary hover:bg-[#6FD4F5] transition-all rounded-xl text-sm font-800 shadow-sm shadow-accent-soft/30 border border-primary/10">
+                    Cerrar
+                </button>
+</div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,19 @@
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.app-main {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    padding: var(--space-8);
+    background: var(--color-bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@media (max-width: 1024px) {
+    .app-main {
+        padding: var(--space-4);
+    }
+}

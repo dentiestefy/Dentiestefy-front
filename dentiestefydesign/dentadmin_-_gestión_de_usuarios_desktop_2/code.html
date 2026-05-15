@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DentAdmin - Gestión de Usuarios Simplificada</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#87E1FF",
+                        "sidebar-bg": "#FFFFFF",
+                        "main-bg": "#F4FAFF",
+                        "text-main": "#1E293B",
+                        "text-muted": "#64748B",
+                        "border-color": "#E2E8F0"
+                    },
+                    fontFamily: {
+                        "sans": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-sans antialiased text-text-main bg-main-bg;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .nav-item.active {
+            @apply bg-[#F0F9FF] text-[#00A3FF] border-r-4 border-[#00A3FF];
+        }
+        .nav-item.active .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        .modal-blur {
+            backdrop-filter: blur(4px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex h-screen overflow-hidden relative">
+<aside class="w-64 bg-sidebar-bg border-r border-border-color flex flex-col shrink-0 z-10 blur-[2px]">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-[#00A3FF] w-10 h-10 rounded-xl flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-white text-2xl">dentistry</span>
+</div>
+<span class="font-extrabold text-xl tracking-tight">DentAdmin</span>
+</div>
+<nav class="flex-1 mt-4 px-3 space-y-1">
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-text-muted hover:bg-slate-50 rounded-lg transition-colors font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                Agenda
+            </a>
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-text-muted hover:bg-slate-50 rounded-lg transition-colors font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">person</span>
+                Perfil
+            </a>
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-text-muted hover:bg-slate-50 rounded-lg transition-colors font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+                Evoluciones
+            </a>
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-text-muted hover:bg-slate-50 rounded-lg transition-colors font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                Contabilidad
+            </a>
+<a class="nav-item active flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-bold text-sm" href="#">
+<span class="material-symbols-outlined">group</span>
+                Usuarios
+            </a>
+</nav>
+<div class="p-4 border-t border-border-color">
+<div class="flex items-center gap-3 p-2">
+<div class="w-10 h-10 rounded-full border border-slate-200 overflow-hidden shrink-0">
+<img alt="Admin" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZnykjaoMn-X9RVusN1cDvxip5ijoo6KLsuNFJIeEKGueRvhilKvxgzipUQx-J-NxpFa_kOj8inIVG150FOFqnJ63fac11Mu6xzM5NJijcbaohh_waGU7PBBqEiI5iSSb4cFzeAxu7hZpU7b-x3DQN1cb82lGdueu6jaF5U921Dl46Y5j78u_S44VlmESt7-fKSJQuFdWL0Cdw3sauCJ9aqBhMtf52OUxlkmdoyxeR5r2OV4U1OTInit-307_lWKP69lccUZJv63E"/>
+</div>
+<div class="min-w-0">
+<p class="text-sm font-bold truncate">Dr. Admin</p>
+<p class="text-xs text-text-muted truncate">Administrador</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden blur-[2px]">
+<header class="h-20 flex items-center justify-between px-8 shrink-0">
+<div>
+<h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Usuarios</h1>
+<p class="text-sm text-text-muted">Gestiona los accesos y roles del personal clínico</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-xl">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white border border-border-color rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Buscar usuarios..." type="text"/>
+</div>
+<button class="bg-[#87E1FF] hover:bg-[#76d0ee] text-slate-900 px-5 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 shadow-sm transition-all">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+                    Crear Usuario
+                </button>
+</div>
+</header>
+<div class="flex-1 overflow-auto px-8 pb-8">
+<div class="bg-white rounded-xl border border-border-color shadow-sm overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50/50 border-b border-border-color">
+<th class="px-6 py-4 text-xs font-bold text-text-muted uppercase tracking-wider">Nombre completo</th>
+<th class="px-6 py-4 text-xs font-bold text-text-muted uppercase tracking-wider">Nombre de usuario</th>
+<th class="px-6 py-4 text-xs font-bold text-text-muted uppercase tracking-wider">Rol</th>
+<th class="px-6 py-4 text-xs font-bold text-text-muted uppercase tracking-wider text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-color">
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-blue-600">medical_services</span>
+</div>
+<span class="font-bold text-slate-900">Dr. Alejandro Méndez</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium text-text-muted">amendez_dent</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-100">Doctor</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-text-muted hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-2 text-text-muted hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 modal-blur p-4">
+<div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+<div class="px-8 py-6 border-b border-border-color flex justify-between items-center">
+<div>
+<h2 class="text-xl font-extrabold text-slate-900">Editar Usuario</h2>
+<p class="text-sm text-text-muted">Modifica los detalles de acceso y contacto del personal.</p>
+</div>
+<button class="text-text-muted hover:text-slate-900 transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="px-8 py-8 overflow-y-auto space-y-8">
+<section>
+<div class="flex items-center gap-2 mb-5">
+<span class="material-symbols-outlined text-blue-600">person</span>
+<h3 class="text-sm font-bold uppercase tracking-wider text-slate-900">Información del Usuario</h3>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="col-span-2 sm:col-span-1">
+<label class="block text-xs font-bold text-text-muted uppercase mb-2">Nombre Completo</label>
+<input class="w-full px-4 py-2.5 bg-slate-50 border border-border-color rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all font-medium text-slate-900" type="text" value="Dr. Alejandro Méndez"/>
+</div>
+<div class="col-span-2 sm:col-span-1">
+<label class="block text-xs font-bold text-text-muted uppercase mb-2">Nombre de Usuario</label>
+<input class="w-full px-4 py-2.5 bg-slate-50 border border-border-color rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all font-medium text-slate-900" type="text" value="amendez_dent"/>
+</div>
+<div class="col-span-2">
+<label class="block text-xs font-bold text-text-muted uppercase mb-2">Rol</label>
+<div class="relative">
+<select class="w-full appearance-none px-4 py-2.5 bg-slate-50 border border-border-color rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all font-medium text-slate-900">
+<option selected="" value="doctor">Doctor</option>
+<option value="secretaria">Secretaria</option>
+<option value="administrador">Administrador</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-2 mb-5">
+<span class="material-symbols-outlined text-emerald-600">contact_mail</span>
+<h3 class="text-sm font-bold uppercase tracking-wider text-slate-900">Información de Contacto</h3>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="col-span-2 sm:col-span-1">
+<label class="block text-xs font-bold text-text-muted uppercase mb-2">Correo Electrónico</label>
+<input class="w-full px-4 py-2.5 bg-slate-50 border border-border-color rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all font-medium text-slate-900" type="email" value="a.mendez@dentadmin.com"/>
+</div>
+<div class="col-span-2 sm:col-span-1">
+<label class="block text-xs font-bold text-text-muted uppercase mb-2">Teléfono</label>
+<input class="w-full px-4 py-2.5 bg-slate-50 border border-border-color rounded-lg text-sm focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all font-medium text-slate-900" type="tel" value="+34 612 345 678"/>
+</div>
+</div>
+</section>
+</div>
+<div class="px-8 py-6 border-t border-border-color flex justify-end gap-3 bg-slate-50/50">
+<button class="px-6 py-2.5 rounded-lg border border-border-color text-sm font-bold text-text-muted hover:bg-white hover:text-slate-900 transition-all">
+                    Cancelar
+                </button>
+<button class="bg-[#87E1FF] hover:bg-[#76d0ee] text-slate-900 px-6 py-2.5 rounded-lg font-bold text-sm shadow-sm transition-all">
+                    Guardar Cambios
+                </button>
+</div>
+</div>
+</div>
+
+</body></html>

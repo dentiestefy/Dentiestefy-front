@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DentiEstefy - Perfil Profesional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#87E1FF",
+                        "text-primary": "#1E2A32",
+                        "background-light": "#F8FAFC",
+                        "surface": "#ffffff",
+                        "border-color": "#E2E8F0",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    spacing: {
+                        '8pt': '8px',
+                        '16pt': '16px',
+                        '24pt': '24px',
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: theme('colors.background-light');
+            color: theme('colors.text-primary');
+        }
+        .sidebar-item-active {
+            background-color: #87E1FF;
+            color: #1E2A32;
+        }
+        .table-header {
+            @apply text-left text-xs font-bold uppercase tracking-wider text-slate-400 py-4 px-6;
+        }
+        .table-cell {
+            @apply py-4 px-6 text-sm text-text-primary border-b border-slate-50;
+        }
+    </style>
+</head>
+<body class="antialiased h-screen overflow-hidden flex">
+<aside class="w-[280px] h-full bg-white border-r border-slate-200 flex flex-col shrink-0">
+<div class="p-8">
+<div class="flex items-center gap-2 mb-10">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-text-primary text-xl font-bold">dentistry</span>
+</div>
+<span class="text-xl font-extrabold tracking-tight text-text-primary">DentiEstefy</span>
+</div>
+<nav class="space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-slate-50 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-slate-50 transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-semibold">Agenda</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-slate-50 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-semibold">Pacientes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl sidebar-item-active shadow-lg shadow-primary/20" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-semibold">Mi Perfil</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:bg-slate-50 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-semibold">Configuración</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-8">
+<div class="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+<div class="flex items-center gap-3">
+<img alt="Dr. Alejandro" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT14fT3BY7rIhHvaFoYgwlvNecyAWN9rHPlA-iltsFYi76P2RJ1IvF8kGH6pl7NiO3ch5w0w1scP9C0bGcyLjNJRxBLugfHrSnYNES_fKoHOTJ1ad4le2yJDs0rfmaZpL9GFGWBxhsF7oH05R7iVxYBOKQF9qp0p1Ti5dqydbKvJJ_ZlUOx4NVKe81e1YptDFPp9EnjxWJGt8t_W9GtN2OTSOJFnqvKo2WObM-h9Dh9vf8Oj-7L12f4_m08G9wgV-uAxhxkYIfxrY"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold text-text-primary truncate">Dr. Alejandro Silva</p>
+<p class="text-xs text-slate-500">Ortodoncista</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 h-full overflow-y-auto bg-background-light">
+<header class="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200 px-10 flex items-center justify-between sticky top-0 z-10">
+<div>
+<h1 class="text-2xl font-bold text-text-primary">Perfil Profesional</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2.5 text-slate-400 hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="bg-primary hover:bg-[#6ed3f7] text-text-primary px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm">
+                    Cerrar Sesión
+                </button>
+</div>
+</header>
+<div class="p-10 space-y-8 max-w-7xl mx-auto">
+<section class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row gap-8 items-start">
+<div class="relative">
+<img alt="Doctor Photo" class="w-32 h-32 rounded-3xl object-cover border-4 border-slate-50 shadow-inner" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT14fT3BY7rIhHvaFoYgwlvNecyAWN9rHPlA-iltsFYi76P2RJ1IvF8kGH6pl7NiO3ch5w0w1scP9C0bGcyLjNJRxBLugfHrSnYNES_fKoHOTJ1ad4le2yJDs0rfmaZpL9GFGWBxhsF7oH05R7iVxYBOKQF9qp0p1Ti5dqydbKvJJ_ZlUOx4NVKe81e1YptDFPp9EnjxWJGt8t_W9GtN2OTSOJFnqvKo2WObM-h9Dh9vf8Oj-7L12f4_m08G9wgV-uAxhxkYIfxrY"/>
+<div class="absolute -bottom-2 -right-2 bg-primary w-8 h-8 rounded-full flex items-center justify-center border-4 border-white">
+<span class="material-symbols-outlined text-white text-xs">edit</span>
+</div>
+</div>
+<div class="flex-1 space-y-6">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="text-3xl font-extrabold text-text-primary">Dr. Alejandro Silva Morales</h2>
+<p class="text-slate-500 font-medium">Cirujano Dentista - Universidad de Chile</p>
+</div>
+<button class="px-5 py-2 border-2 border-slate-100 rounded-xl text-slate-600 font-bold text-sm hover:bg-slate-50 transition-colors">
+                            Editar Información
+                        </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Especialidad</p>
+<div class="flex items-center gap-2 text-text-primary">
+<span class="material-symbols-outlined text-primary text-xl">medical_services</span>
+<span class="font-semibold">Ortodoncia Avanzada</span>
+</div>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Correo Electrónico</p>
+<div class="flex items-center gap-2 text-text-primary">
+<span class="material-symbols-outlined text-primary text-xl">mail</span>
+<span class="font-semibold">a.silva@dentadmin.com</span>
+</div>
+</div>
+<div class="space-y-1">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Teléfono de Contacto</p>
+<div class="flex items-center gap-2 text-text-primary">
+<span class="material-symbols-outlined text-primary text-xl">call</span>
+<span class="font-semibold">+56 9 8765 4321</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold text-text-primary">Atenciones de la Semana</h3>
+<div class="flex gap-2">
+<button class="p-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50">
+<span class="material-symbols-outlined text-slate-600">chevron_left</span>
+</button>
+<button class="p-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50">
+<span class="material-symbols-outlined text-slate-600">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-slate-50/50">
+<th class="table-header w-[15%]">Fecha &amp; Hora</th>
+<th class="table-header w-[25%]">Paciente</th>
+<th class="table-header w-[30%]">Procedimiento</th>
+<th class="table-header w-[15%]">Estado</th>
+<th class="table-header w-[15%] text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<tr>
+<td class="table-cell">
+<div class="font-bold">Lun 12 Oct</div>
+<div class="text-xs text-slate-400">08:00 - 09:00</div>
+</td>
+<td class="table-cell">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">RM</div>
+<span class="font-bold">Ricardo Milos</span>
+</div>
+</td>
+<td class="table-cell">Control de Brackets - Arcada Superior</td>
+<td class="table-cell">
+<span class="px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold uppercase rounded-full border border-green-100">Confirmado</span>
+</td>
+<td class="table-cell text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<tr>
+<td class="table-cell">
+<div class="font-bold">Lun 12 Oct</div>
+<div class="text-xs text-slate-400">10:30 - 11:30</div>
+</td>
+<td class="table-cell">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">JP</div>
+<span class="font-bold">Juan Pérez</span>
+</div>
+</td>
+<td class="table-cell">Limpieza Dental Profunda (Profilaxis)</td>
+<td class="table-cell">
+<span class="px-3 py-1 bg-[#FFF8E1] text-[#FFB74D] text-[10px] font-bold uppercase rounded-full border border-[#FFE082]">Pendiente</span>
+</td>
+<td class="table-cell text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<tr>
+<td class="table-cell">
+<div class="font-bold">Mar 13 Oct</div>
+<div class="text-xs text-slate-400">14:00 - 15:00</div>
+</td>
+<td class="table-cell">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">MG</div>
+<span class="font-bold">Maria Gonzalez</span>
+</div>
+</td>
+<td class="table-cell">Instalación de Aparatología Fija</td>
+<td class="table-cell">
+<span class="px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold uppercase rounded-full border border-green-100">Confirmado</span>
+</td>
+<td class="table-cell text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<tr>
+<td class="table-cell">
+<div class="font-bold">Mié 14 Oct</div>
+<div class="text-xs text-slate-400">09:00 - 10:00</div>
+</td>
+<td class="table-cell">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">CL</div>
+<span class="font-bold">Carlos Lira</span>
+</div>
+</td>
+<td class="table-cell">Blanqueamiento LED Sesión 1/2</td>
+<td class="table-cell">
+<span class="px-3 py-1 bg-red-50 text-red-500 text-[10px] font-bold uppercase rounded-full border border-red-100">Cancelado</span>
+</td>
+<td class="table-cell text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-6 bg-slate-50/30 flex justify-center">
+<button class="text-slate-500 font-bold text-sm hover:text-text-primary flex items-center gap-2">
+                            Ver historial completo
+                            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+
+</body></html>

@@ -1,0 +1,277 @@
+.agenda-page {
+    animation: fadeIn var(--transition-base) ease;
+}
+
+.agenda-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+}
+
+.agenda-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+}
+
+.agenda-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.agenda-nav-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    transition: all var(--transition-fast);
+}
+
+.agenda-nav-btn:hover {
+    background: var(--color-bg-alt);
+    color: var(--color-text-primary);
+}
+
+.agenda-week-label {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    min-width: 200px;
+    text-align: center;
+}
+
+/* ─── Calendar Grid ──────────────────────────────────────────── */
+.agenda-calendar {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: 60px repeat(6, 1fr);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+}
+
+.calendar-time-gutter {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--space-1) var(--space-2);
+    min-width: 60px;
+    padding-top: 6px;
+}
+
+.calendar-day-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-3);
+    gap: var(--space-1);
+    border-left: 1px solid var(--color-border-light);
+}
+
+.calendar-day-header--today {
+    background: var(--color-primary-lighter);
+}
+
+.calendar-day-name {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.calendar-day-number {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+}
+
+.calendar-day-number--today {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ─── Calendar Body ──────────────────────────────────────────── */
+.calendar-body {
+    max-height: 65vh;
+    overflow-y: auto;
+}
+
+.calendar-row {
+    display: grid;
+    grid-template-columns: 60px repeat(6, 1fr);
+    min-height: 40px;
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+/* Fila de media hora: borde más suave */
+.calendar-row--half {
+    border-bottom: 1px dashed var(--color-border-light);
+}
+
+.calendar-row:last-child {
+    border-bottom: none;
+}
+
+/* Hora entera: texto normal; media hora: más pequeño y tenue */
+.calendar-time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+}
+
+.calendar-row--half .calendar-time {
+    font-size: 10px;
+    opacity: 0.55;
+}
+
+/* ─── Calendar Cell ──────────────────────────────────────────── */
+.calendar-cell {
+    border-left: 1px solid var(--color-border-light);
+    padding: 2px 10px 2px 2px; /* padding-right reserva franja clickeable */
+    display: flex;
+    flex-direction: column;
+    min-height: 40px;
+    position: relative;
+}
+
+.calendar-cell--today {
+    background: rgba(14, 165, 233, 0.02);
+}
+
+/* Cursor y hover para celdas clickeables (admin/secretaria) */
+.calendar-cell--clickable {
+    cursor: pointer;
+}
+
+.calendar-cell--clickable:hover {
+    background: rgba(14, 165, 233, 0.06);
+    transition: background var(--transition-fast);
+}
+
+/* ─── Cell Events Container ──────────────────────────────────── */
+.calendar-cell-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    height: 100%;
+}
+
+/* Cuando hay múltiples doctores → lado a lado */
+.calendar-cell-events--row {
+    flex-direction: row;
+    gap: 2px;
+}
+
+/* Columna por doctor */
+.calendar-doctor-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+}
+
+/* Columna compartida (lado a lado): cada una toma el mismo ancho */
+.calendar-doctor-col--shared {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ─── Event Blocks ───────────────────────────────────────────── */
+.calendar-event {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 3px var(--space-1);
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border-left: 3px solid;
+    min-height: 34px;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.calendar-event:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+    z-index: 2;
+    position: relative;
+}
+
+/* Compacto cuando hay múltiples doctores lado a lado */
+.calendar-event--compact {
+    font-size: 10px;
+    padding: 2px 3px;
+    min-height: 28px;
+}
+
+.calendar-event--pendiente {
+    background: var(--color-warning-light);
+    border-color: var(--color-warning);
+    color: #92400e;
+}
+
+.calendar-event--confirmada {
+    background: var(--color-info-light);
+    border-color: var(--color-info);
+    color: #1e40af;
+}
+
+.calendar-event--atendido {
+    background: var(--color-success-light);
+    border-color: var(--color-success);
+    color: #166534;
+}
+
+.calendar-event--cancelada {
+    background: var(--color-danger-light);
+    border-color: var(--color-danger);
+    color: #991b1b;
+    opacity: 0.7;
+}
+
+.calendar-event-time {
+    font-weight: var(--font-weight-bold);
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.calendar-event-name {
+    font-weight: var(--font-weight-medium);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-event-doctor {
+    font-size: 10px;
+    opacity: 0.75;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

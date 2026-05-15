@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DentiEstefy - Agenda Desktop Principal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#87E1FF",
+                        "text-primary": "#1E2A32",
+                        "background-light": "#F4FAFF",
+                        "surface": "#ffffff",
+                        "status-confirmed": "#87E1FF",
+                        "status-pending": "#FFB74D",
+                        "status-cancelled": "#EF5350",
+                        "status-completed": "#81C784",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    spacing: {
+                        '8pt': '8px',
+                        '16pt': '16px',
+                        '24pt': '24px',
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-background-light font-display text-text-primary antialiased;
+            }
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(5, 1fr);
+        }
+        .time-slot {
+            height: 80px;
+            border-bottom: 1px solid #E2E8F0;
+            border-right: 1px solid #E2E8F0;
+        }
+        .sidebar-item.active {
+            background-color: #87E1FF;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden">
+<aside class="w-[260px] bg-white border-r border-slate-200 flex flex-col z-20">
+<div class="p-8">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">dentistry</span>
+<span class="text-xl font-bold tracking-tight text-text-primary">DentiEstefy</span>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Agenda</span>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Perfil</span>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Evoluciones</span>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span>Contabilidad</span>
+</a>
+<a class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Usuarios</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-100">
+<div class="flex items-center gap-3 p-2">
+<img alt="Dr. Alejandro S." class="w-10 h-10 rounded-full bg-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzjudD_FdZ-6MGh87xwS5gt1f2qn22qiJRrpGHDcljZaY9EFplOfCk2MR7eSuRZKOoc6oS2SbdES4gjnGHw0rOyeYPt2Is5WNpjrW5mefv8BK6ogFyZi2Rz22oU_biKTI9arqXXZu0CE6eWEmKHILU95rcLb6cV1mrRZmzKxgrNpwQZNvxlzbMIepBXbSV5D7wOtIxXqoEBm7D2mqB6t9xOKNraQsrfbdFtidA4fPaaWg3eUBba1D44ksO0w9eG2xSY1dSp8YDc0FN"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold truncate">Dr. Alejandro S.</p>
+<p class="text-xs text-slate-500 truncate">Odontólogo General</p>
+</div>
+<button class="text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col relative overflow-hidden">
+<header class="h-20 bg-white border-b border-slate-200 px-8 flex items-center justify-between z-10">
+<h1 class="text-2xl font-bold">Agenda</h1>
+<div class="flex items-center gap-6 flex-1 max-w-2xl px-12">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-slate-100 border-none rounded-xl py-2.5 pl-10 focus:ring-2 focus:ring-primary/50 text-sm" placeholder="Buscar paciente..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-500 hover:bg-slate-50 rounded-lg">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+<button class="bg-primary text-text-primary font-bold px-4 py-2 rounded-lg flex items-center gap-2 text-sm shadow-sm hover:brightness-105">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Nueva Cita
+                </button>
+</div>
+</header>
+<div class="px-8 py-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-semibold hover:bg-slate-50">Hoy</button>
+<div class="flex items-center bg-white border border-slate-200 rounded-lg overflow-hidden">
+<button class="p-2 hover:bg-slate-50 border-r border-slate-200">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="p-2 hover:bg-slate-50">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+<h2 class="text-lg font-bold">Octubre 2023</h2>
+</div>
+<div class="flex bg-white border border-slate-200 rounded-lg p-1">
+<button class="px-4 py-1.5 text-sm font-semibold text-slate-500 hover:text-text-primary">Día</button>
+<button class="px-4 py-1.5 text-sm font-bold bg-primary/20 rounded-md text-text-primary">Semana</button>
+<button class="px-4 py-1.5 text-sm font-semibold text-slate-500 hover:text-text-primary">Mes</button>
+</div>
+</div>
+<div class="flex-1 overflow-auto px-8 pb-8">
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 min-w-[1000px]">
+<div class="calendar-grid border-b border-slate-200 bg-slate-50/50 rounded-t-2xl">
+<div class="p-4"></div>
+<div class="p-4 text-center">
+<p class="text-xs font-bold text-slate-400 uppercase">Lunes</p>
+<p class="text-xl font-bold">16</p>
+</div>
+<div class="p-4 text-center">
+<p class="text-xs font-bold text-slate-400 uppercase">Martes</p>
+<p class="text-xl font-bold">17</p>
+</div>
+<div class="p-4 text-center">
+<p class="text-xs font-bold text-primary uppercase">Miércoles</p>
+<p class="text-xl font-bold text-primary">18</p>
+</div>
+<div class="p-4 text-center">
+<p class="text-xs font-bold text-slate-400 uppercase">Jueves</p>
+<p class="text-xl font-bold">19</p>
+</div>
+<div class="p-4 text-center">
+<p class="text-xs font-bold text-slate-400 uppercase">Viernes</p>
+<p class="text-xl font-bold">20</p>
+</div>
+</div>
+<div class="relative">
+<div class="calendar-grid">
+<div class="text-right pr-4 pt-4 text-xs font-medium text-slate-400 space-y-[64px]">
+<div>08:00</div>
+<div>09:00</div>
+<div>10:00</div>
+<div>11:00</div>
+<div>12:00</div>
+<div>13:00</div>
+<div>14:00</div>
+<div>15:00</div>
+<div>16:00</div>
+<div>17:00</div>
+<div>18:00</div>
+</div>
+<div class="relative col-span-5 grid grid-cols-5 h-[880px]">
+<div class="border-l border-slate-100 h-full"></div>
+<div class="border-l border-slate-100 h-full"></div>
+<div class="border-l border-slate-100 h-full"></div>
+<div class="border-l border-slate-100 h-full"></div>
+<div class="border-l border-slate-100 h-full"></div>
+<div class="absolute inset-0 pointer-events-none">
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+<div class="h-[80px] border-b border-slate-100"></div>
+</div>
+<div class="absolute left-[0%] top-[80px] w-[20%] p-1 h-[80px]">
+<div class="h-full w-full bg-status-confirmed/20 border-l-4 border-status-confirmed p-2 rounded-r-lg overflow-hidden cursor-pointer hover:brightness-95">
+<p class="text-xs font-bold truncate">Ricardo Milos</p>
+<p class="text-[10px] text-slate-600">09:00 - 09:45</p>
+<p class="text-[10px] italic mt-1 text-slate-500">Limpieza</p>
+</div>
+</div>
+<div class="absolute left-[20%] top-[280px] w-[20%] p-1 h-[120px]">
+<div class="h-full w-full bg-status-pending/20 border-l-4 border-status-pending p-2 rounded-r-lg overflow-hidden cursor-pointer hover:brightness-95">
+<p class="text-xs font-bold truncate">Carla Benitez</p>
+<p class="text-[10px] text-slate-600">11:30 - 13:00</p>
+<p class="text-[10px] italic mt-1 text-slate-500">Tratamiento conducto</p>
+</div>
+</div>
+<div class="absolute left-[60%] top-[560px] w-[20%] p-1 h-[80px]">
+<div class="h-full w-full bg-status-completed/20 border-l-4 border-status-completed p-2 rounded-r-lg overflow-hidden cursor-pointer hover:brightness-95">
+<p class="text-xs font-bold truncate">Pedro Pascal</p>
+<p class="text-[10px] text-slate-600">15:00 - 15:45</p>
+<p class="text-[10px] italic mt-1 text-slate-500">Control</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+<div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
+<div class="px-8 pt-8 pb-2 flex justify-between items-center">
+<h2 class="text-xl font-bold text-text-primary">Nueva Cita</h2>
+<button class="text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="p-8 space-y-5">
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-text-primary uppercase tracking-wider">Nombre del Paciente</label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" placeholder="Ej. Juan Pérez" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-text-primary uppercase tracking-wider">RUT</label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" placeholder="12.345.678-9" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-text-primary uppercase tracking-wider">Edad</label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" placeholder="00" type="number"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-text-primary uppercase tracking-wider">Doctor</label>
+<div class="relative">
+<select class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm appearance-none transition-all">
+<option disabled="" selected="" value="">Seleccionar Doctor</option>
+<option value="1">Dr. Alejandro Silva</option>
+<option value="2">Dra. Beatriz Morales</option>
+<option value="3">Dr. Carlos Fuente</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3.5 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-text-primary uppercase tracking-wider">Fecha</label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" type="date"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-text-primary uppercase tracking-wider">Hora</label>
+<input class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all" type="time"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-text-primary uppercase tracking-wider">Descripción</label>
+<textarea class="w-full p-4 rounded-xl border border-slate-200 bg-slate-50 focus:border-primary focus:ring-primary text-sm transition-all resize-none" placeholder="Motivo de la consulta..." rows="3"></textarea>
+</div>
+<div class="flex items-center gap-3 pt-4">
+<button class="flex-1 h-12 border border-slate-200 text-slate-500 font-bold rounded-xl hover:bg-slate-50 transition-all active:scale-[0.98]" type="button">
+                        Cancelar
+                    </button>
+<button class="flex-[2] h-12 bg-primary hover:brightness-105 text-text-primary font-bold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98]" type="submit">
+                        Programar Cita
+                    </button>
+</div>
+</form>
+</div>
+</div>
+
+</body></html>

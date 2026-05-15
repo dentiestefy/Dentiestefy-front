@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DentiEstefy - Agenda Semanal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6ed3f7",
+                        "text-primary": "#1E2A32",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                        "surface": "#ffffff",
+                        "status-modified": "#FFB74D",
+                        "status-cancelled": "#EF5350",
+                        "status-programmed": "#6ed3f7",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    spacing: {
+                        '2': '8px',
+                        '4': '16px',
+                        '8': '32px'
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-display text-text-primary bg-background-light antialiased;
+            }
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(5, 1fr);
+        }
+        .time-slot {
+            height: 90px;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+        .sidebar-item-active {
+            @apply bg-primary/10 text-primary border-r-4 border-primary;
+        }
+        .sidebar-item-inactive {
+            @apply text-text-primary/70 hover:bg-slate-50 hover:text-text-primary transition-colors;
+        }
+        .segmented-control-btn {
+            @apply px-4 py-1.5 text-xs font-bold transition-all;
+        }
+        .segmented-control-btn.active {
+            @apply bg-white shadow-sm text-slate-900 rounded-md;
+        }
+        .segmented-control-btn.inactive {
+            @apply text-slate-500 hover:text-slate-700;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen overflow-hidden">
+<div class="flex h-full w-full">
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white font-bold">medical_services</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-text-primary">DentiEstefy</span>
+</div>
+<nav class="flex-1 mt-4">
+<a class="sidebar-item-active flex items-center gap-3 px-6 py-4" href="#">
+<span class="material-symbols-outlined fill-1">calendar_month</span>
+<span class="font-semibold">Agenda</span>
+</a>
+<a class="sidebar-item-inactive flex items-center gap-3 px-6 py-4" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-semibold">Perfil</span>
+</a>
+<a class="sidebar-item-inactive flex items-center gap-3 px-6 py-4" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-semibold">Evoluciones</span>
+</a>
+<a class="sidebar-item-inactive flex items-center gap-3 px-6 py-4" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-semibold">Contabilidad</span>
+</a>
+<a class="sidebar-item-inactive flex items-center gap-3 px-6 py-4" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-semibold">Usuarios</span>
+</a>
+</nav>
+<div class="p-6 border-t border-slate-100">
+<div class="flex items-center gap-3">
+<img alt="Dr. Profile" class="size-10 rounded-full object-cover border-2 border-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT14fT3BY7rIhHvaFoYgwlvNecyAWN9rHPlA-iltsFYi76P2RJ1IvF8kGH6pl7NiO3ch5w0w1scP9C0bGcyLjNJRxBLugfHrSnYNES_fKoHOTJ1ad4le2yJDs0rfmaZpL9GFGWBxhsF7oH05R7iVxYBOKQF9qp0p1Ti5dqydbKvJJ_ZlUOx4NVKe81e1YptDFPp9EnjxWJGt8t_W9GtN2OTSOJFnqvKo2WObM-h9Dh9vf8Oj-7L12f4_m08G9wgV-uAxhxkYIfxrY"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate text-text-primary">Dr. Alejandro S.</p>
+<p class="text-xs text-slate-500">Administrador</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background-light">
+<header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-8 flex-1">
+<h1 class="text-xl font-bold text-text-primary">Agenda</h1>
+<div class="relative w-full max-w-lg">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/50 transition-all focus:border-primary" placeholder="Buscar paciente..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="size-9 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+<button class="bg-primary text-white px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg font-bold">add</span>
+                    Nueva Cita
+                </button>
+</div>
+</header>
+<div class="px-8 py-4 flex items-center justify-between bg-white border-b border-slate-100 shrink-0">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1">
+<button class="px-4 py-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors border border-slate-200">Hoy</button>
+<div class="flex items-center ml-2 border border-slate-200 rounded-lg bg-slate-50 p-0.5">
+<button class="p-1 hover:bg-white hover:shadow-sm rounded transition-all text-slate-600">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="p-1 hover:bg-white hover:shadow-sm rounded transition-all text-slate-600">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+<h2 class="text-lg font-bold text-text-primary ml-2">Mayo 2024</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="bg-slate-100 p-1 rounded-lg flex items-center">
+<button class="segmented-control-btn inactive">Día</button>
+<button class="segmented-control-btn active">Semana</button>
+<button class="segmented-control-btn inactive">Mes</button>
+</div>
+<div class="flex items-center gap-4 px-4 border-l border-slate-200">
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-status-programmed"></span>
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-tight">Programada</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-status-modified"></span>
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-tight">Modificada</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-status-cancelled"></span>
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-tight">Cancelada</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-hidden flex flex-col p-4">
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-full overflow-hidden">
+<div class="calendar-grid border-b border-slate-200 bg-slate-50/50 shrink-0">
+<div class="p-3"></div>
+<div class="p-3 text-center border-l border-slate-200">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Lunes</span>
+<p class="text-lg font-bold text-text-primary">12</p>
+</div>
+<div class="p-3 text-center border-l border-slate-200">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Martes</span>
+<p class="text-lg font-bold text-text-primary">13</p>
+</div>
+<div class="p-3 text-center border-l border-slate-200 bg-primary/5">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Miércoles</span>
+<p class="text-lg font-bold text-primary">14</p>
+</div>
+<div class="p-3 text-center border-l border-slate-200">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jueves</span>
+<p class="text-lg font-bold text-text-primary">15</p>
+</div>
+<div class="p-3 text-center border-l border-slate-200">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Viernes</span>
+<p class="text-lg font-bold text-text-primary">16</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto relative bg-slate-50/20">
+<div class="calendar-grid relative">
+<div class="bg-slate-50/30">
+<div class="time-slot flex items-start justify-center pt-2 text-[10px] font-bold text-slate-400">08:00 AM</div>
+<div class="time-slot flex items-start justify-center pt-2 text-[10px] font-bold text-slate-400">09:00 AM</div>
+<div class="time-slot flex items-start justify-center pt-2 text-[10px] font-bold text-slate-400">10:00 AM</div>
+<div class="time-slot flex items-start justify-center pt-2 text-[10px] font-bold text-slate-400">11:00 AM</div>
+<div class="time-slot flex items-start justify-center pt-2 text-[10px] font-bold text-slate-400">12:00 PM</div>
+<div class="time-slot flex items-start justify-center pt-2 text-[10px] font-bold text-slate-400 bg-slate-100/50">01:00 PM</div>
+<div class="time-slot flex items-start justify-center pt-2 text-[10px] font-bold text-slate-400">02:00 PM</div>
+</div>
+<div class="border-l border-slate-100 relative">
+<div class="time-slot"></div>
+<div class="time-slot">
+<div class="mx-1 mt-1 p-2 bg-white border-l-4 border-status-programmed shadow-sm rounded border border-slate-100 hover:shadow-md transition-shadow cursor-pointer">
+<div class="flex flex-col">
+<span class="text-[9px] font-bold text-primary mb-0.5">PROGRAMADA</span>
+<span class="text-xs font-bold text-text-primary truncate">Ricardo Milos</span>
+<span class="text-[10px] text-slate-500">09:15 - 10:00</span>
+</div>
+</div>
+</div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot bg-slate-50/50"></div>
+<div class="time-slot"></div>
+</div>
+<div class="border-l border-slate-100 relative">
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot">
+<div class="mx-1 mt-1 p-2 bg-white border-l-4 border-status-modified shadow-sm rounded border border-slate-100 hover:shadow-md transition-shadow cursor-pointer">
+<div class="flex flex-col">
+<span class="text-[9px] font-bold text-status-modified mb-0.5">MODIFICADA</span>
+<span class="text-xs font-bold text-text-primary truncate">Sofía Vergara</span>
+<span class="text-[10px] text-slate-500">10:30 - 11:30</span>
+</div>
+</div>
+</div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot bg-slate-50/50"></div>
+<div class="time-slot"></div>
+</div>
+<div class="border-l border-slate-100 relative bg-primary/5">
+<div class="time-slot">
+<div class="mx-1 mt-1 p-2 bg-white border-l-4 border-status-programmed shadow-sm rounded border border-slate-100 hover:shadow-md transition-shadow cursor-pointer">
+<div class="flex flex-col">
+<span class="text-[9px] font-bold text-primary mb-0.5">PROGRAMADA</span>
+<span class="text-xs font-bold text-text-primary truncate">Marta Sanchez</span>
+<span class="text-[10px] text-slate-500">08:00 - 09:00</span>
+</div>
+</div>
+</div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot">
+<div class="mx-1 mt-1 p-2 bg-slate-100/60 border-l-4 border-status-cancelled rounded border border-slate-200 cursor-not-allowed">
+<div class="flex flex-col opacity-60">
+<span class="text-[9px] font-bold text-status-cancelled mb-0.5">CANCELADA</span>
+<span class="text-xs font-bold text-slate-600 line-through truncate">Pedro Pascal</span>
+<span class="text-[10px] text-slate-500 italic">Cita anulada</span>
+</div>
+</div>
+</div>
+<div class="time-slot"></div>
+<div class="time-slot bg-slate-200/20"></div>
+<div class="time-slot"></div>
+<div class="absolute top-[310px] left-0 right-0 border-t-2 border-red-400 z-10 pointer-events-none">
+<div class="absolute -top-1.5 -left-1 size-3 bg-red-400 rounded-full shadow-sm ring-2 ring-white"></div>
+</div>
+</div>
+<div class="border-l border-slate-100 relative">
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot bg-slate-50/50"></div>
+<div class="time-slot"></div>
+</div>
+<div class="border-l border-slate-100 relative">
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot"></div>
+<div class="time-slot bg-slate-50/50"></div>
+<div class="time-slot"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
