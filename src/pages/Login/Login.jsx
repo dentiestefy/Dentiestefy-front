@@ -111,9 +111,9 @@ export default function Login() {
                 <div className="login-demo-credentials">
                     <p className="login-demo-title">Credenciales de prueba:</p>
                     <div className="login-demo-grid">
-                        <div><strong>Admin:</strong> dr_rmartinez / admin123</div>
-                        <div><strong>Doctor:</strong> dra_acastro / doctor123</div>
-                        <div><strong>Secretaria:</strong> mj_lopez / sec123</div>
+                        <div><strong>Admin:</strong> bodo / bodo</div>
+                        <div><strong>Doctor:</strong> estefannymarau / estefanny1207</div>
+                        <div><strong>Secretaria:</strong> gabo / gabocortes</div>
                     </div>
                 </div>
 
