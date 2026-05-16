@@ -16,22 +16,7 @@ for (let h = 8; h <= 20; h++) {
 
 const DAYS_LABELS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
-function getWeekDates(baseDate) {
-    const d = new Date(baseDate);
-    const day = d.getDay();
-    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-    const monday = new Date(d.setDate(diff));
-    monday.setHours(0, 0, 0, 0);
-    return Array.from({ length: 6 }, (_, i) => {
-        const date = new Date(monday);
-        date.setDate(monday.getDate() + i);
-        return date;
-    });
-}
-
-function formatDate(date) {
-    return date.toISOString().split('T')[0];
-}
+import { getChileDateString, getChileWeekDates } from '../../utils/dateUtils';
 
 export default function Agenda() {
     const { currentUser, canManageAppointments, canChooseDoctor } = useAuth();
@@ -40,19 +25,17 @@ export default function Agenda() {
     const [modalState, setModalState] = useState({ open: false, mode: 'create', appointment: null, prefill: null });
     const [deleteModal, setDeleteModal] = useState({ open: false, appointment: null });
 
-    const weekDates = useMemo(() => getWeekDates(currentWeek), [currentWeek]);
+    const weekDates = useMemo(() => getChileWeekDates(currentWeek), [currentWeek]);
 
     const weekAppointments = useMemo(() => {
-        const dateStrings = weekDates.map(formatDate);
         return appointments.filter((appt) => {
             if (currentUser.role === 'doctor' && appt.doctorId !== currentUser.id) return false;
-            return dateStrings.includes(appt.fecha);
+            return weekDates.includes(appt.fecha);
         });
     }, [appointments, weekDates, currentUser]);
 
     // Devuelve citas cuya hora cae dentro del slot de 30 min
-    const getAppointmentsForSlot = (date, slot) => {
-        const dateStr = formatDate(date);
+    const getAppointmentsForSlot = (dateStr, slot) => {
         return weekAppointments.filter((a) => {
             if (a.fecha !== dateStr) return false;
             const [apptHour, apptMin] = a.hora.split(':').map(Number);
@@ -68,13 +51,13 @@ export default function Agenda() {
 
     const goToToday = () => setCurrentWeek(new Date());
 
-    const handleCellClick = (date, slot) => {
+    const handleCellClick = (dateStr, slot) => {
         if (!canManageAppointments) return;
         setModalState({
             open: true,
             mode: 'create',
             appointment: null,
-            prefill: { fecha: formatDate(date), hora: slot.label },
+            prefill: { fecha: dateStr, hora: slot.label },
         });
     };
 
@@ -104,16 +87,19 @@ export default function Agenda() {
     const getWeekLabel = () => {
         const start = weekDates[0];
         const end = weekDates[5];
-        const startMonth = start.toLocaleDateString('es-CL', { month: 'long' });
-        const endMonth = end.toLocaleDateString('es-CL', { month: 'long' });
-        const year = start.getFullYear();
+        const startD = new Date(`${start}T12:00:00Z`);
+        const endD = new Date(`${end}T12:00:00Z`);
+        const formatter = new Intl.DateTimeFormat('es-CL', { month: 'long', timeZone: 'UTC' });
+        const startMonth = formatter.format(startD);
+        const endMonth = formatter.format(endD);
+        const year = startD.getUTCFullYear();
         if (startMonth === endMonth) {
             return `${startMonth.charAt(0).toUpperCase() + startMonth.slice(1)} ${year}`;
         }
         return `${startMonth.charAt(0).toUpperCase() + startMonth.slice(1)} - ${endMonth.charAt(0).toUpperCase() + endMonth.slice(1)} ${year}`;
     };
 
-    const isToday = (date) => formatDate(date) === formatDate(new Date());
+    const isToday = (dateStr) => dateStr === getChileDateString(new Date());
 
     return (
         <div className="agenda-page">
@@ -150,11 +136,11 @@ export default function Agenda() {
             <div className="agenda-calendar">
                 <div className="calendar-header">
                     <div className="calendar-time-gutter" />
-                    {weekDates.map((date, i) => (
-                        <div key={i} className={`calendar-day-header ${isToday(date) ? 'calendar-day-header--today' : ''}`}>
+                    {weekDates.map((dateStr, i) => (
+                        <div key={i} className={`calendar-day-header ${isToday(dateStr) ? 'calendar-day-header--today' : ''}`}>
                             <span className="calendar-day-name">{DAYS_LABELS[i]}</span>
-                            <span className={`calendar-day-number ${isToday(date) ? 'calendar-day-number--today' : ''}`}>
-                                {date.getDate()}
+                            <span className={`calendar-day-number ${isToday(dateStr) ? 'calendar-day-number--today' : ''}`}>
+                                {parseInt(dateStr.split('-')[2], 10)}
                             </span>
                         </div>
                     ))}
@@ -170,8 +156,8 @@ export default function Agenda() {
                                 <span className="calendar-time">{slot.label}</span>
                             </div>
 
-                            {weekDates.map((date, dayIdx) => {
-                                const slotAppts = getAppointmentsForSlot(date, slot);
+                            {weekDates.map((dateStr, dayIdx) => {
+                                const slotAppts = getAppointmentsForSlot(dateStr, slot);
 
                                 // Agrupar por doctorId
                                 const byDoctor = {};
@@ -185,8 +171,8 @@ export default function Agenda() {
                                 return (
                                     <div
                                         key={dayIdx}
-                                        className={`calendar-cell ${isToday(date) ? 'calendar-cell--today' : ''} ${canManageAppointments ? 'calendar-cell--clickable' : ''}`}
-                                        onClick={() => handleCellClick(date, slot)}
+                                        className={`calendar-cell ${isToday(dateStr) ? 'calendar-cell--today' : ''} ${canManageAppointments ? 'calendar-cell--clickable' : ''}`}
+                                        onClick={() => handleCellClick(dateStr, slot)}
                                     >
                                         <div className={`calendar-cell-events ${multiDoctor ? 'calendar-cell-events--row' : ''}`}>
                                             {doctorGroups.map((appts, groupIdx) => (

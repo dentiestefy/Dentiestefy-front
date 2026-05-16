@@ -9,6 +9,7 @@ import Button from '../../components/Shared/Button';
 import Badge from '../../components/Shared/Badge';
 import Input from '../../components/Shared/Input';
 import Modal from '../../components/Shared/Modal';
+import { getChileDateString, formatChileDateDisplay, formatChileTimeDisplay } from '../../utils/dateUtils';
 import './Evoluciones.css';
 
 export default function PatientDetail() {
@@ -52,8 +53,8 @@ export default function PatientDetail() {
 
     const formatDate = (dateStr) => {
         if (!dateStr) return '';
-        const d = new Date(dateStr + 'T12:00:00');
-        return d.toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' });
+        const d = new Date(dateStr + 'T12:00:00Z');
+        return formatChileDateDisplay(d);
     };
 
     const handleStatusChange = (e) => {
@@ -92,8 +93,8 @@ export default function PatientDetail() {
         formData.append('pacienteId', patient.id);
         
         // 2. Resto de campos
-        formData.append('fecha', today.toISOString().split('T')[0]);
-        formData.append('hora', today.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false }));
+        formData.append('fecha', getChileDateString(today));
+        formData.append('hora', formatChileTimeDisplay(today));
         formData.append('procedimiento', registerForm.procedimiento);
         formData.append('estado', 'Atendido');
         formData.append('notas', registerForm.notas);
@@ -322,7 +323,7 @@ export default function PatientDetail() {
                 <div className="register-ev-header">
                     <div>
                         <span className="label">FECHA Y HORA</span>
-                        <span className="value">{new Date().toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' })} • {new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}</span>
+                        <span className="value">{formatChileDateDisplay(new Date())} • {formatChileTimeDisplay(new Date())}</span>
                     </div>
                     <div>
                         <span className="label">PACIENTE</span>
