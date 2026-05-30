@@ -41,7 +41,7 @@ export default function PatientDetail() {
         return (
             <div className="patient-detail-page">
                 <button className="patient-detail-back" onClick={() => navigate('/evoluciones')}>
-                    <ArrowLeft size={16} /> Volver a Evoluciones
+                    <ArrowLeft size={16} /> Volver a Pacientes
                 </button>
                 <p>Paciente no encontrado.</p>
             </div>
@@ -130,7 +130,7 @@ export default function PatientDetail() {
     return (
         <div className="patient-detail-page">
             <button className="patient-detail-back" onClick={() => navigate('/evoluciones')}>
-                <ArrowLeft size={16} /> Volver a Evoluciones
+                <ArrowLeft size={16} /> Volver a Pacientes
             </button>
 
             <div className="patient-detail-layout">
