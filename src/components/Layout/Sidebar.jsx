@@ -1,12 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Calendar, User, Activity, Wallet, Users, LogOut } from 'lucide-react';
+import { Calendar, User, UsersRound, Wallet, Users, LogOut } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './Sidebar.css';
 
 const menuItems = [
     { path: '/agenda', label: 'Agenda', icon: Calendar, roles: ['admin', 'doctor', 'secretaria'] },
     { path: '/perfil', label: 'Perfil', icon: User, roles: ['admin', 'doctor', 'secretaria'] },
-    { path: '/evoluciones', label: 'Evoluciones', icon: Activity, roles: ['admin', 'doctor'] },
+    { path: '/evoluciones', label: 'Pacientes', icon: UsersRound, roles: ['admin', 'doctor'] },
     { path: '/contabilidad', label: 'Contabilidad', icon: Wallet, roles: ['admin', 'doctor'] },
     { path: '/usuarios', label: 'Usuarios', icon: Users, roles: ['admin', 'secretaria'] },
 ];

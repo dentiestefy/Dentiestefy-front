@@ -58,8 +58,8 @@ export default function Evoluciones() {
         <div className="evoluciones-page">
             <div className="evoluciones-header">
                 <div>
-                    <h1>Evoluciones</h1>
-                    <p className="text-secondary">Gestiona las evoluciones clínicas de tus pacientes</p>
+                    <h1>Pacientes</h1>
+                    <p className="text-secondary">Gestiona la información de tus pacientes</p>
                 </div>
             </div>
 
@@ -118,7 +118,7 @@ export default function Evoluciones() {
                                 icon={Eye}
                                 onClick={() => navigate(`/evoluciones/${patient.id}`)}
                             >
-                                Ver evoluciones
+                                Ir al perfil
                             </Button>
                         </td>
                     </tr>
