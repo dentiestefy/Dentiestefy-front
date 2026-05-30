@@ -188,6 +188,10 @@
     color: var(--color-text-primary);
 }
 
+.appt-detail-status {
+    margin-top: 2px;
+}
+
 .appt-detail-description {
     display: flex;
     flex-direction: column;

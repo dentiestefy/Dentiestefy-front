@@ -76,8 +76,11 @@ export function AppProvider({ children }) {
         try {
             const result = await appointmentService.updateAppointment(id, updates);
             if (result) {
+                // Fusionamos los cambios enviados (updates) además de la respuesta del
+                // servidor, para que campos como `comentario` se reflejen al instante
+                // aunque el backend no los devuelva explícitamente.
                 setAppointments((prev) =>
-                    prev.map((a) => (a._id === id || a.id === id ? { ...a, ...result } : a))
+                    prev.map((a) => (a._id === id || a.id === id ? { ...a, ...updates, ...result } : a))
                 );
             }
         } catch (error) {

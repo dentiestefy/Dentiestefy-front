@@ -6,6 +6,7 @@ import Card from '../../components/Shared/Card';
 import Button from '../../components/Shared/Button';
 import Table from '../../components/Shared/Table';
 import Badge from '../../components/Shared/Badge';
+import StatusSelect from '../../components/Shared/StatusSelect';
 import Modal from '../../components/Shared/Modal';
 import Input from '../../components/Shared/Input';
 import SearchBar from '../../components/Shared/SearchBar';
@@ -197,53 +198,27 @@ export default function Perfil() {
                     columns={tableColumns}
                     data={filteredAppointments}
                     emptyMessage={`No hay citas ${getDateLabel() === 'hoy' ? 'para hoy' : getDateLabel()}`}
-                    renderRow={(appt) => {
-                        const variantMap = {
-                            Activo: 'success',
-                            Atendido: 'info',
-                            Confirmada: 'info',
-                            Pendiente: 'warning',
-                            Finalizado: 'neutral',
-                            Cancelada: 'danger',
-                        };
-
-                        return (
-                            <tr key={appt.id}>
-                                <td>
-                                    <div className="table-cell-name">
-                                        <div className="table-avatar">{getInitials(appt.pacienteNombre)}</div>
-                                        <div>
-                                            <div className="font-medium">{appt.pacienteNombre}</div>
-                                            <div className="text-sm text-muted">{appt.pacienteRut}</div>
-                                        </div>
+                    renderRow={(appt) => (
+                        <tr key={appt.id}>
+                            <td>
+                                <div className="table-cell-name">
+                                    <div className="table-avatar">{getInitials(appt.pacienteNombre)}</div>
+                                    <div>
+                                        <div className="font-medium">{appt.pacienteNombre}</div>
+                                        <div className="text-sm text-muted">{appt.pacienteRut}</div>
                                     </div>
-                                </td>
-                                <td>{appt.hora}</td>
-                                <td>{appt.procedimiento || 'Consulta General'}</td>
-                                <td>
-                                    <select
-                                        value={appt.estado}
-                                        onChange={(e) => updateAppointment(appt.id, { estado: e.target.value })}
-                                        className={`badge badge--${variantMap[appt.estado] || 'neutral'} badge--md input-select`}
-                                        style={{ 
-                                            cursor: 'pointer', 
-                                            border: 'none', 
-                                            paddingRight: '22px', // Espacio para el icono de chevron
-                                            backgroundPosition: 'right 6px center',
-                                            height: 'auto',
-                                            display: 'inline-flex'
-                                        }}
-                                        title="Cambiar estado"
-                                    >
-                                        <option value="Pendiente">Pendiente</option>
-                                        <option value="Confirmada">Confirmada</option>
-                                        <option value="Atendido">Atendido</option>
-                                        <option value="Cancelada">Cancelada</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        );
-                    }}
+                                </div>
+                            </td>
+                            <td>{appt.hora}</td>
+                            <td>{appt.procedimiento || 'Consulta General'}</td>
+                            <td>
+                                <StatusSelect
+                                    value={appt.estado}
+                                    onChange={(estado) => updateAppointment(appt.id, { estado })}
+                                />
+                            </td>
+                        </tr>
+                    )}
                     footer={`Mostrando ${filteredAppointments.length} atenciones`}
                 />
             </div>

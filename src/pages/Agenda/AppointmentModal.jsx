@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
-import { Calendar, Clock, User, Stethoscope } from 'lucide-react';
+import { Calendar, Clock, User, Stethoscope, CircleDot } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useApp } from '../../context/AppContext';
 import Modal from '../../components/Shared/Modal';
 import Input from '../../components/Shared/Input';
 import Button from '../../components/Shared/Button';
 import Badge from '../../components/Shared/Badge';
+import StatusSelect from '../../components/Shared/StatusSelect';
+import DatePicker from '../../components/Shared/DatePicker';
+import TimePicker from '../../components/Shared/TimePicker';
 import { formatRut } from '../../utils/rut';
 
 export default function AppointmentModal({ isOpen, mode, appointment, prefill, onClose, onCreate, onUpdate, onDelete, onEdit, canManage, canChooseDoctor }) {
     const { currentUser } = useAuth();
-    const { users } = useApp();
+    const { users, updateAppointment } = useApp();
     const doctors = users.filter((u) => u.role === 'doctor' || u.role === 'admin');
 
     const [form, setForm] = useState({
@@ -109,6 +112,20 @@ export default function AppointmentModal({ isOpen, mode, appointment, prefill, o
                         <div>
                             <span className="appt-detail-label">DOCTOR</span>
                             <span className="appt-detail-value">{appointment.doctorNombre}</span>
+                        </div>
+                    </div>
+
+                    <div className="appt-detail-item">
+                        <CircleDot size={16} className="text-primary" />
+                        <div>
+                            <span className="appt-detail-label">ESTADO</span>
+                            <div className="appt-detail-status">
+                                <StatusSelect
+                                    value={appointment.estado}
+                                    onChange={(estado) => updateAppointment(appointment.id, { estado })}
+                                    disabled={!canManage}
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -264,8 +281,8 @@ export default function AppointmentModal({ isOpen, mode, appointment, prefill, o
                     />
                 )}
                 <div className="appt-form-row">
-                    <Input label="Fecha" type="date" value={form.fecha} onChange={handleChange('fecha')} />
-                    <Input label="Hora" type="time" value={form.hora} onChange={handleChange('hora')} />
+                    <DatePicker label="Fecha" value={form.fecha} onChange={handleChange('fecha')} />
+                    <TimePicker label="Hora" value={form.hora} onChange={handleChange('hora')} />
                 </div>
                 <Input
                     label="Descripción"
