@@ -6,14 +6,14 @@ import { useApp } from '../../context/AppContext';
 import { PATIENT_STATUS } from '../../data/mockData';
 import SearchBar from '../../components/Shared/SearchBar';
 import Table from '../../components/Shared/Table';
-import Badge from '../../components/Shared/Badge';
 import Button from '../../components/Shared/Button';
+import StatusSelect, { PATIENT_STATUS_OPTIONS } from '../../components/Shared/StatusSelect';
 import './Evoluciones.css';
 
 export default function Evoluciones() {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
-    const { patients, appointments } = useApp();
+    const { patients, appointments, updatePatient } = useApp();
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState(PATIENT_STATUS.ACTIVO);
 
@@ -74,10 +74,10 @@ export default function Evoluciones() {
                         Activo
                     </button>
                     <button
-                        className={`filter-btn ${statusFilter === PATIENT_STATUS.FINALIZADO ? 'filter-btn--active' : ''}`}
-                        onClick={() => setStatusFilter(PATIENT_STATUS.FINALIZADO)}
+                        className={`filter-btn ${statusFilter === PATIENT_STATUS.DE_ALTA ? 'filter-btn--active' : ''}`}
+                        onClick={() => setStatusFilter(PATIENT_STATUS.DE_ALTA)}
                     >
-                        Finalizado
+                        De alta
                     </button>
                     <button
                         className={`filter-btn ${!statusFilter ? 'filter-btn--active' : ''}`}
@@ -104,7 +104,13 @@ export default function Evoluciones() {
                             </div>
                         </td>
                         <td>{formatDate(patient.ultimaAtencion)}</td>
-                        <td><Badge text={patient.estado} /></td>
+                        <td>
+                            <StatusSelect
+                                value={patient.estado}
+                                onChange={(estado) => updatePatient(patient.id, { estado })}
+                                options={PATIENT_STATUS_OPTIONS}
+                            />
+                        </td>
                         <td>
                             <Button
                                 variant="outline-primary"

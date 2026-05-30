@@ -1,10 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useApp } from '../../context/AppContext';
 import Button from '../../components/Shared/Button';
 import AppointmentModal from './AppointmentModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
+import AppointmentBubble from './AppointmentBubble';
 import './Agenda.css';
 
 // Slots de media hora: 08:00 → 20:00
@@ -39,6 +40,57 @@ export default function Agenda() {
     const [currentWeek, setCurrentWeek] = useState(new Date());
     const [modalState, setModalState] = useState({ open: false, mode: 'create', appointment: null, prefill: null });
     const [deleteModal, setDeleteModal] = useState({ open: false, appointment: null });
+    const [hovered, setHovered] = useState(null); // { id, rect }
+    const hoverTimer = useRef(null);
+
+    // Retardo antes de mostrar la viñeta al pasar el mouse (en ms)
+    const HOVER_OPEN_DELAY = 200;
+    // Retardo al salir, para poder cruzar el hueco entre cita y viñeta (en ms)
+    const HOVER_CLOSE_DELAY = 100;
+
+    // Muestra la viñeta tras un breve retardo; cancela cualquier cierre pendiente
+    const showBubble = (id, el) => {
+        if (hoverTimer.current) {
+            clearTimeout(hoverTimer.current);
+            hoverTimer.current = null;
+        }
+        const rect = el ? el.getBoundingClientRect() : null;
+        // Si la viñeta ya está abierta (te mueves entre cita y viñeta), no reaplicar retardo
+        if (hovered && hovered.id === id) {
+            setHovered((prev) => (rect ? { id, rect } : prev));
+            return;
+        }
+        hoverTimer.current = setTimeout(() => {
+            setHovered({ id, rect });
+            hoverTimer.current = null;
+        }, HOVER_OPEN_DELAY);
+    };
+
+    // Cierra con un retardo corto para poder cruzar el hueco hacia la viñeta
+    const hideBubble = () => {
+        if (hoverTimer.current) clearTimeout(hoverTimer.current);
+        hoverTimer.current = setTimeout(() => {
+            setHovered(null);
+            hoverTimer.current = null;
+        }, HOVER_CLOSE_DELAY);
+    };
+
+    // Cierra de inmediato (para el click en la cita), sin retardo
+    const closeBubbleNow = () => {
+        if (hoverTimer.current) {
+            clearTimeout(hoverTimer.current);
+            hoverTimer.current = null;
+        }
+        setHovered(null);
+    };
+
+    const handleSaveComment = async (id, comentario) => {
+        await updateAppointment(id, { comentario });
+    };
+
+    const handleChangeStatus = async (id, estado) => {
+        await updateAppointment(id, { estado });
+    };
 
     const weekDates = useMemo(() => getWeekDates(currentWeek), [currentWeek]);
 
@@ -195,23 +247,40 @@ export default function Agenda() {
                                                     className={`calendar-doctor-col ${multiDoctor ? 'calendar-doctor-col--shared' : ''}`}
                                                 >
                                                     {appts.map((appt) => (
-                                                        <button
+                                                        <div
                                                             key={appt.id}
-                                                            className={`calendar-event calendar-event--${appt.estado.toLowerCase()} ${multiDoctor ? 'calendar-event--compact' : ''}`}
-                                                            title={`🕐 ${appt.hora}  ·  ${appt.estado}\n👨‍⚕️ ${appt.doctorNombre}\n👤 ${appt.pacienteNombre}`}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                setModalState({ open: true, mode: 'view', appointment: appt, prefill: null });
-                                                            }}
+                                                            className="calendar-event-wrap"
+                                                            onMouseEnter={(e) => showBubble(appt.id, e.currentTarget)}
+                                                            onMouseLeave={hideBubble}
                                                         >
-                                                            <span className="calendar-event-time">{appt.hora}</span>
-                                                            <span className="calendar-event-name">
-                                                                {appt.pacienteNombre.split(' ').slice(0, 2).join(' ')}
-                                                            </span>
-                                                            {!multiDoctor && (
-                                                                <span className="calendar-event-doctor">{appt.doctorNombre}</span>
+                                                            <button
+                                                                className={`calendar-event calendar-event--${appt.estado.toLowerCase().replace(/\s+/g, '-')} ${multiDoctor ? 'calendar-event--compact' : ''}`}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    closeBubbleNow();
+                                                                    setModalState({ open: true, mode: 'view', appointment: appt, prefill: null });
+                                                                }}
+                                                            >
+                                                                <span className="calendar-event-time">{appt.hora}</span>
+                                                                <span className="calendar-event-name">
+                                                                    {appt.pacienteNombre.split(' ').slice(0, 2).join(' ')}
+                                                                </span>
+                                                                {!multiDoctor && (
+                                                                    <span className="calendar-event-doctor">{appt.doctorNombre}</span>
+                                                                )}
+                                                            </button>
+                                                            {hovered?.id === appt.id && (
+                                                                <AppointmentBubble
+                                                                    appt={appt}
+                                                                    anchorRect={hovered.rect}
+                                                                    canManage={canManageAppointments}
+                                                                    onSaveComment={handleSaveComment}
+                                                                    onChangeStatus={handleChangeStatus}
+                                                                    onEnter={() => showBubble(appt.id)}
+                                                                    onLeave={hideBubble}
+                                                                />
                                                             )}
-                                                        </button>
+                                                        </div>
                                                     ))}
                                                 </div>
                                             ))}
@@ -227,7 +296,13 @@ export default function Agenda() {
             <AppointmentModal
                 isOpen={modalState.open}
                 mode={modalState.mode}
-                appointment={modalState.appointment}
+                appointment={
+                    // Usar la versión fresca del estado global para que los cambios
+                    // (p.ej. estado) se reflejen en el modal en tiempo real
+                    modalState.appointment
+                        ? appointments.find((a) => a.id === modalState.appointment.id) || modalState.appointment
+                        : null
+                }
                 prefill={modalState.prefill}
                 onClose={() => setModalState({ open: false, mode: 'create', appointment: null, prefill: null })}
                 onCreate={handleCreateAppointment}

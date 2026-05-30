@@ -3,10 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Edit, Plus, Calendar, Clock, Briefcase, Eye, FileText, ImagePlus, X } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
-import { PATIENT_STATUS } from '../../data/mockData';
 import Card from '../../components/Shared/Card';
 import Button from '../../components/Shared/Button';
 import Badge from '../../components/Shared/Badge';
+import StatusSelect, { PATIENT_STATUS_OPTIONS } from '../../components/Shared/StatusSelect';
 import Input from '../../components/Shared/Input';
 import Modal from '../../components/Shared/Modal';
 import './Evoluciones.css';
@@ -56,8 +56,8 @@ export default function PatientDetail() {
         return d.toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' });
     };
 
-    const handleStatusChange = (e) => {
-        updatePatient(patient.id, { estado: e.target.value });
+    const handleStatusChange = (estado) => {
+        updatePatient(patient.id, { estado });
     };
 
     const openEditMedical = () => {
@@ -174,15 +174,12 @@ export default function PatientDetail() {
                             Editar Antecedentes
                         </Button>
                         <div className="patient-status-select">
-                            <span className="text-sm font-medium">Estado:</span>
-                            <select
+                            <span className="text-sm font-medium">Estado paciente:</span>
+                            <StatusSelect
                                 value={patient.estado}
                                 onChange={handleStatusChange}
-                                style={{ padding: '4px 8px', borderRadius: '6px', border: '1.5px solid var(--color-border)', fontSize: '13px', fontFamily: 'var(--font-family)' }}
-                            >
-                                <option value={PATIENT_STATUS.ACTIVO}>Activo</option>
-                                <option value={PATIENT_STATUS.FINALIZADO}>Finalizado</option>
-                            </select>
+                                options={PATIENT_STATUS_OPTIONS}
+                            />
                         </div>
                     </div>
                 </Card>

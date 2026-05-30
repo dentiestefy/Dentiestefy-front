@@ -9,11 +9,12 @@ export const ROLES = {
 export const APPOINTMENT_STATUS = {
   PENDIENTE: 'Pendiente',
   CONFIRMADA: 'Confirmada',
+  EN_ESPERA: 'En espera',
   ATENDIDO: 'Atendido',
   CANCELADA: 'Cancelada',
 };
 
 export const PATIENT_STATUS = {
   ACTIVO: 'Activo',
-  FINALIZADO: 'Finalizado',
+  DE_ALTA: 'De alta',
 };
