@@ -5,8 +5,8 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(() => {
-        // Init from localStorage
-        const stored = localStorage.getItem('user');
+        // Init from sessionStorage (per-tab session: a new window/tab won't share the session)
+        const stored = sessionStorage.getItem('user');
         return stored ? JSON.parse(stored) : null;
     });
 
@@ -21,8 +21,8 @@ export function AuthProvider({ children }) {
         try {
             const data = await authService.loginRequest(username, password);
             if (data.success && data.token) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
+                sessionStorage.setItem('token', data.token);
+                sessionStorage.setItem('user', JSON.stringify(data.user));
                 setCurrentUser(data.user);
                 return { success: true };
             }
@@ -33,8 +33,8 @@ export function AuthProvider({ children }) {
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
         setCurrentUser(null);
     };
 
